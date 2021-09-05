@@ -1,13 +1,13 @@
 import express from "express";
+import config  from './config/keys.js'
+import DFrouter from "./routes/dialogFlow.routes.js";
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 const PORT = process.env.PORT || 5000;
-
-
-app.get('/', (req, res) => {
-    res.send({'Hello': 'There'});
-})
-
+ 
+app.use('/api', DFrouter);
 
 app.listen(PORT, () => {
     console.log(`Listening to PORT = ${PORT}`);
