@@ -1,4 +1,5 @@
 import express from "express";
+import 'dotenv/config';
 import config  from './config/keys.js'
 import DFrouter from "./routes/dialogFlow.routes.js";
 

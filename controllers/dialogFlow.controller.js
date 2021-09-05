@@ -1,12 +1,13 @@
 import dialogflow from 'dialogflow';
+import 'dotenv';
 import config from '../config/keys.js'
 import structjson from '../structjson.js';
 
 const projectID = config.googleProjectID
 
 const credentials = {
-    client_email = config.googleClientEmail,
-    private_key = config.googlePrivateKey
+    client_email : config.googleClientEmail,
+    private_key : config.googlePrivateKey
 }
 
 const sessionClient = new dialogflow.SessionsClient(projectID , credentials);

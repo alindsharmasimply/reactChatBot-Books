@@ -1,10 +1,7 @@
-if(process.env.NODE_ENV === 'production')
-{
-    import production from "./production.js";
-    export default production;
-}
-else
-{
-    import dev from './dev.js';
-    export default dev;
+export default {
+    googleProjectID: process.env.PROJECT_ID,
+    dialogFlowSessionID: process.env.SESSION_ID,
+    dialogFlowSessionLanguageCode: process.env.LANGUAGE_CODE,
+    googleClientEmail: process.env.CLIENT_EMAIL,
+    googlePrivateKey: process.env.PRIVATE_KEY
 }
