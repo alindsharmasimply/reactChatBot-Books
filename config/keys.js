@@ -1,8 +1,10 @@
 if(process.env.NODE_ENV === 'production')
 {
-    export import "./production.js";
+    import production from "./production.js";
+    export default production;
 }
 else
 {
-    export import './dev.js';
+    import dev from './dev.js';
+    export default dev;
 }
