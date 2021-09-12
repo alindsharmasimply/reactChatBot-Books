@@ -7,7 +7,7 @@ const projectID = config.googleProjectID;
 
 const credentials = {
   client_email: config.googleClientEmail,
-  private_key: config.googlePrivateKey,
+  private_key: config.googlePrivateKey.replace(/\\n/gm, "\n"),
 };
 
 console.log("GOOGLE PRIVATE KEY = ", credentials.private_key);
