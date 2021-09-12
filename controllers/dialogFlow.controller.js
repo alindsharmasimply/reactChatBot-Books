@@ -10,6 +10,7 @@ const credentials = {
   private_key: config.googlePrivateKey,
 };
 
+console.log("GOOGLE PRIVATE KEY = ", credentials.private_key);
 const sessionClient = new dialogflow.SessionsClient({ projectID, credentials });
 // The path to identify the agent that owns the created intent.
 
@@ -50,6 +51,7 @@ export default class DFCtrl {
   }
   static async apiEventQuery(req, res, next) {
     try {
+      console.log("GOOGLE PRIVATE KEY = ", credentials.private_key);
       const sessionPath = sessionClient.sessionPath(
         config.googleProjectID,
         config.dialogFlowSessionID + req.body.userID
@@ -64,6 +66,10 @@ export default class DFCtrl {
           },
         },
       };
+      console.log(
+        "PARAMETERS = ",
+        JSON.stringify(structjson.jsonToStructProto(req.body.parameters))
+      );
       const responses = await sessionClient.detectIntent(request);
       console.log(responses[0].queryResult);
       res.json(responses[0].queryResult);
