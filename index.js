@@ -2,6 +2,7 @@ import express from "express";
 import "dotenv/config";
 import config from "./config/keys.js";
 import DFrouter from "./routes/dialogFlow.routes.js";
+import path from "path";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -15,7 +16,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 
   // index.html for all page routes
-  const path = require("path");
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
