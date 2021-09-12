@@ -8,14 +8,17 @@
     "start": "nodemon index.js",
     "backend": "nodemon index.js",
     "frontend": "npm start --prefix client",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@google-cloud/storage": "^5.14.0",
+    "actions-on-google": "^3.0.0",
     "axios": "^0.21.4",
     "dialogflow": "^1.2.0",
+    "dialogflow-fulfillment": "^0.6.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1"
   },
