@@ -12,10 +12,6 @@ const credentials = {
 
 const sessionClient = new dialogflow.SessionsClient({ projectID, credentials });
 // The path to identify the agent that owns the created intent.
-const sessionPath = sessionClient.sessionPath(
-  config.googleProjectID,
-  config.dialogFlowSessionID
-);
 
 export default class DFCtrl {
   static async api(req, res, next) {
@@ -27,6 +23,10 @@ export default class DFCtrl {
   }
   static async apiTextQuery(req, res, next) {
     try {
+      const sessionPath = sessionClient.sessionPath(
+        config.googleProjectID,
+        config.dialogFlowSessionID + req.body.userID
+      );
       const request = {
         session: sessionPath,
         queryInput: {
@@ -50,6 +50,10 @@ export default class DFCtrl {
   }
   static async apiEventQuery(req, res, next) {
     try {
+      const sessionPath = sessionClient.sessionPath(
+        config.googleProjectID,
+        config.dialogFlowSessionID + req.body.userID
+      );
       const request = {
         session: sessionPath,
         queryInput: {
