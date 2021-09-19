@@ -6,7 +6,7 @@ const QuickReply = (props) => {
       <a
         style={{ margin: 3 }}
         href="/"
-        className="btn-floating btn-large waves-effect waves-light red"
+        className="btn-floating btn-large waves-effect waves-light blue"
         onClick={(event) =>
           props.click(
             event,

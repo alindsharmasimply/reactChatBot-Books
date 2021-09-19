@@ -33,7 +33,7 @@ class QuickReplies extends Component {
             <div className="col s2">
               <a
                 href="/"
-                className="btn-floating btn-large waves-effect waves-light red"
+                className="btn-floating btn-large waves-effect waves-light blue"
               >
                 {this.props.speaks}
               </a>

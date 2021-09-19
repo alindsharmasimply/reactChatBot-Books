@@ -3,6 +3,14 @@ import "dotenv/config";
 import config from "./config/keys.js";
 import DFrouter from "./routes/dialogFlow.routes.js";
 import path from "path";
+import mongoose from "mongoose";
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+import "./models/Registration.js";
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));

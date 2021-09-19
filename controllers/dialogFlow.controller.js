@@ -2,6 +2,7 @@
 import dialogflow from "dialogflow";
 import config from "../config/keys.js";
 import structjson from "../structjson.js";
+import registration from "../models/Registration.js";
 
 const projectID = config.googleProjectID;
 
@@ -42,8 +43,8 @@ export default class DFCtrl {
           },
         },
       };
-      const responses = await sessionClient.detectIntent(request);
-      console.log(responses[0].queryResult);
+      let responses = await sessionClient.detectIntent(request);
+      responses = await DFCtrl.handleAction(responses);
       res.json(responses[0].queryResult);
     } catch (error) {
       res.status(501).json({ error: error.message });
@@ -70,11 +71,41 @@ export default class DFCtrl {
         "PARAMETERS = ",
         JSON.stringify(structjson.jsonToStructProto(req.body.parameters))
       );
-      const responses = await sessionClient.detectIntent(request);
-      console.log(responses[0].queryResult);
+      let responses = await sessionClient.detectIntent(request);
+      responses = DFCtrl.handleAction(responses);
       res.json(responses[0].queryResult);
     } catch (error) {
       res.status(501).json({ error: error.message });
+    }
+  }
+  static handleAction(responses) {
+    try {
+      let queryResult = responses[0].queryResult;
+
+      switch (queryResult.action) {
+        case "recommendbooks-yes":
+          if (queryResult.allRequiredParamsPresent) {
+            DFCtrl.saveRegistration(queryResult.parameters.fields);
+          }
+          break;
+      }
+      return responses;
+    } catch (error) {}
+  }
+  static async saveRegistration(fields) {
+    const details = {
+      name: fields.name.stringValue,
+      address: fields.address.stringValue,
+      phone: fields.phone.stringValue,
+      email: fields.email.stringValue,
+      dateSent: Date.now(),
+    };
+    try {
+      const register = new registration(details);
+      let reg = await register.save();
+      console.log(reg);
+    } catch (err) {
+      console.log(err);
     }
   }
 }
